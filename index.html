@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Study Portal</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='85'%3E%F0%9F%93%9A%3C/text%3E%3C/svg%3E">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #f5f7fb;
+      color: #202938;
+      font: 16px Arial, sans-serif;
+    }
+    header {
+      background: white;
+      padding: 22px;
+      border-bottom: 1px solid #e3e8ef;
+    }
+    header h1 { margin: 0; font-size: 25px; }
+    header p { margin-bottom: 0; color: #667085; }
+    main { max-width: 1000px; margin: 30px auto; padding: 0 18px; }
+    input {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #ccd3df;
+      border-radius: 10px;
+      font-size: 16px;
+      margin-bottom: 22px;
+    }
+    #games {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+    }
+    .game {
+      background: white;
+      border: 1px solid #e3e8ef;
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .game h2 { margin-top: 0; font-size: 19px; }
+    .game p { color: #667085; line-height: 1.5; }
+    .game a, button {
+      display: inline-block;
+      background: #344767;
+      color: white;
+      border: 0;
+      border-radius: 7px;
+      padding: 10px 14px;
+      text-decoration: none;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    #empty { display: none; color: #667085; }
+    footer { text-align: center; padding: 30px; color: #667085; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Study Portal</h1>
+    <p>A collection of browser games for your free time.</p>
+  </header>
+
+  <main>
+    <input id="search" type="search"
+      placeholder="Search games..."
+      aria-label="Search games">
+
+    <section id="games">
+      <article class="game" data-name="2048 puzzle">
+        <h2>🧩 2048</h2>
+        <p>Combine matching numbers to reach 2048.</p>
+        <a href="https://play2048.co/" target="_blank"
+           rel="noopener noreferrer">Play game ↗</a>
+      </article>
+
+      <article class="game" data-name="minesweeper puzzle">
+        <h2>💣 Minesweeper</h2>
+        <p>Find the safe squares and avoid the mines.</p>
+        <a href="https://minesweeper.online/" target="_blank"
+           rel="noopener noreferrer">Play game ↗</a>
+      </article>
+
+      <article class="game" data-name="chess strategy">
+        <h2>♟️ Chess</h2>
+        <p>Play chess and practice your strategy.</p>
+        <a href="https://lichess.org/" target="_blank"
+           rel="noopener noreferrer">Play game ↗</a>
+      </article>
+
+      <article class="game" data-name="word game">
+        <h2>🔤 Word Games</h2>
+        <p>Test your vocabulary and word skills.</p>
+        <a href="https://wordlegame.org/" target="_blank"
+           rel="noopener noreferrer">Play game ↗</a>
+      </article>
+    </section>
+
+    <p id="empty">No games match your search.</p>
+  </main>
+
+  <footer>Stealth Games · Browser Game Collection</footer>
+
+  <script>
+    const search = document.getElementById("search");
+    const cards = [...document.querySelectorAll(".game")];
+    const empty = document.getElementById("empty");
+
+    search.addEventListener("input", () => {
+      const query = search.value.trim().toLowerCase();
+      let visible = 0;
+
+      cards.forEach(card => {
+        const matches =
+          (card.dataset.name + " " + card.innerText)
+          .toLowerCase().includes(query);
+
+        card.hidden = !matches;
+        if (matches) visible++;
+      });
+
+      empty.style.display = visible ? "none" : "block";
+    });
+  </script>
+</body>
+</html>
